@@ -1,11 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebXR Example 1</title>
+    <title>My First WebXR Adventure</title>
 </head>
+
 <body>
-    
+    <button id="vr-button">Start VR</button>
+    <canvas id="vr-canvas"></canvas>
+
+    <script>
+        const vrButton = document.getElementById('vr-button');
+        
+        if (navigator.xr) {
+            navigator.xr.isSessionSupported('immersive-vr').then((supported) => {
+                vrButton.disabled = !supported;
+            });
+        }
+
+        vrButton.addEventListener('click', () => {
+            navigator.xr.requestSession('immersive-vr').then((session) => {
+                // Hooray! We've got a session! Time to start rendering!
+                session.requestAnimationFrame(onXRFrame);
+            });
+        });
+
+        function onXRFrame(time, frame) {
+            // This would be where we'd illustrate our scene.
+        }
+    </script>
 </body>
+
 </html>
